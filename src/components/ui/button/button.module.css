@@ -1,0 +1,9 @@
+.button {
+  border: none;
+  border-radius: 1.75rem;
+  color: var(--color-black);
+  font-weight: bold;
+  text-transform: uppercase;
+  height: 3.5rem;
+  width: 9.12rem;
+}
