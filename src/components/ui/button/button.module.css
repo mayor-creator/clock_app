@@ -6,4 +6,8 @@
   text-transform: uppercase;
   height: 3.5rem;
   width: 9.12rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }

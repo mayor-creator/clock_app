@@ -15,10 +15,10 @@ export function Button({
 }: ButtonProps) {
   return (
     <button
+      className={styles.button}
       onClick={onClick}
       type="button"
       aria-expanded={ariaExpanded}
-      className={styles.button}
     >
       {title}
       <img src={imageUrl} alt="arrow icon" height={24} width={24} />

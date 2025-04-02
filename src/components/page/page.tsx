@@ -36,7 +36,7 @@ export function MainPage() {
       <Button
         title={showInfo ? "Less" : "More"}
         onClick={handleShowInfoClick}
-        imageUrl={showInfo ? arrowDownIcon : arrowUpIcon}
+        imageUrl={showInfo ? arrowUpIcon : arrowDownIcon}
       />
 
       {showInfo && (
