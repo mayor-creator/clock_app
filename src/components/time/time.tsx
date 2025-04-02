@@ -1,5 +1,3 @@
-import { Button } from "../ui/button/button.tsx";
-
 interface TimeProps {
   greeting: string;
   time: string;
@@ -17,7 +15,6 @@ export function Time({ greeting, time, location, imageUrl }: TimeProps) {
       <div>
         <p>{time}</p>
         <p>{location}</p>
-        <Button></Button>
       </div>
     </>
   );
