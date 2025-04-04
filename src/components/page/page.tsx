@@ -5,7 +5,6 @@ import { Time } from "../time/time";
 import { Button } from "../ui/button/button";
 import { Information } from "../info/info";
 
-import refreshIcon from "../../assets/images/desktop/icon-refresh.svg";
 import arrowDownIcon from "../../assets/images/desktop/icon-arrow-down.svg";
 import arrowUpIcon from "../../assets/images/desktop/icon-arrow-up.svg";
 
@@ -18,14 +17,7 @@ export function MainPage() {
 
   return (
     <main>
-      {!showInfo && (
-        <Quote
-          quote="The science of operations, as derived from mathematics more especially, 
-        is a science of itself, and has its own abstract truth and value."
-          imageUrl={refreshIcon}
-          author="Ada Lovelace"
-        />
-      )}
+      {!showInfo && <Quote />}
 
       <Time
         greeting="Good morning, It's currently"
