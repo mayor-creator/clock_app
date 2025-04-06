@@ -21,8 +21,8 @@ export function MainPage() {
 
       <Time
         greeting="Good morning, It's currently"
-        time="11:37 BST"
-        location="IN LONDON, UK"
+        location="location"
+        time="12:30pm"
       />
 
       <Button
