@@ -18,7 +18,7 @@ export function Time({ greeting, time, location, imageUrl }: TimeProps) {
     console.log("latitude data: " + coords.latitude);
   }
 
-  // navigator.geolocation.getCurrentPosition(success);
+  navigator.geolocation.getCurrentPosition(success);
 
   return (
     <>
