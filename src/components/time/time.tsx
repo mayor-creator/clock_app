@@ -26,7 +26,7 @@ export function Time({ imageUrl }: TimeProps) {
       hour: "numeric",
       minute: "2-digit",
       hour12: true,
-    }); 
+    });
   };
 
   useEffect(() => {
