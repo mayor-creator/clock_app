@@ -19,11 +19,7 @@ export function MainPage() {
     <main>
       {!showInfo && <Quote />}
 
-      <Time
-        greeting="Good morning, It's currently"
-        location="location"
-        time="12:30pm"
-      />
+      <Time />
 
       <Button
         title={showInfo ? "Less" : "More"}
