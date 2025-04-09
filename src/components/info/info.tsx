@@ -1,33 +1,64 @@
-interface InfoProps {
-  location: string;
-  day: string;
-  year: string;
-  week: string;
+interface DateProps {
+  dayOfYear: number;
+  dayName: string;
+  weekNumber: number;
 }
 
-export function Information({ location, day, year, week }: InfoProps) {
+function getDateInfo(date: Date): DateProps {
+  const startOfYear = new Date(date.getFullYear(), 0, 0);
+  const diff = date.getTime() - startOfYear.getTime();
+  const oneDay = 1000 * 60 * 60 * 24;
+
+  const dayOfYear = Math.floor(diff / oneDay);
+  const dayOfWeek = date.getDay();
+  const weekNumber = Math.ceil((dayOfYear + 1) / 7);
+
+  // Get the name of the day of the week
+  const daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const dayName = daysOfWeek[dayOfWeek];
+
+  return { dayOfYear, dayName, weekNumber };
+}
+
+interface InfoProps {
+  location: string;
+}
+
+export function Information({ location }: InfoProps) {
+  // Get the current date
+  const currentDate = new Date();
+  const { dayOfYear, dayName, weekNumber } = getDateInfo(currentDate);
+
   return (
-    <>
+    <section>
       <div>
-        <div>
+        <article>
           <p>CURRENT TIMEZONE</p>
           <p>{location}</p>
-        </div>
-        <div>
+        </article>
+        <article>
           <p>DAY OF THE YEAR</p>
-          <p>{year}</p>
-        </div>
+          <p>{dayOfYear}</p>
+        </article>
       </div>
       <div>
-        <div>
+        <article>
           <p>DAY OF THE WEEK</p>
-          <p>{day}</p>
-        </div>
-        <div>
+          <p>{dayName}</p>
+        </article>
+        <article>
           <p>WEEK NUMBER</p>
-          <p>{week}</p>
-        </div>
+          <p>{weekNumber}</p>
+        </article>
       </div>
-    </>
+    </section>
   );
 }

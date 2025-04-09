@@ -27,9 +27,7 @@ export function MainPage() {
         imageUrl={showInfo ? arrowUpIcon : arrowDownIcon}
       />
 
-      {showInfo && (
-        <Information location="Europe/London" year="295" day="5" week="42" />
-      )}
+      {showInfo && <Information location="Europe/London" />}
     </main>
   );
 }
