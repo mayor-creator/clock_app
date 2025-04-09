@@ -28,6 +28,48 @@ function getDateInfo(date: Date): DateProps {
   return { dayOfYear, dayName, weekNumber };
 }
 
+async function getIpAddress() {
+  try {
+    const response = await fetch("https://api.ipify.org/?format=json");
+    const data = await response.json();
+    return data.ip;
+  } catch (error) {
+    console.error("Error getting IP address: ", error);
+    return null;
+  }
+}
+
+interface LocationInfo {
+  timezone: string;
+  city: string;
+  country: string;
+}
+
+async function getLocationInfo(): Promise<LocationInfo | null> {
+  try {
+    const ipAddress = await getIpAddress();
+    if (!ipAddress) {
+      throw new Error("Failed to get IP address");
+    }
+
+    const response = await fetch(`http://ip-api.com/json/${ipAddress}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return {
+      timezone: data.timezone,
+      city: data.city,
+      country: data.country,
+    };
+  } catch (error) {
+    console.log("Error in getLocation:", error);
+    return null;
+  }
+}
+
+getLocationInfo();
+
 interface InfoProps {
   location: string;
 }
