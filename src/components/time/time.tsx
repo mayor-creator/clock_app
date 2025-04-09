@@ -12,11 +12,11 @@ export function Time({ imageUrl }: TimeProps) {
   const getTimeGreeting = () => {
     const currentHour = new Date().getHours();
     if (currentHour < 12) {
-      return "Good Morning";
+      return "Good morning";
     } else if (currentHour < 18) {
-      return "Good Afternoon";
+      return "Good afternoon";
     } else {
-      return "Good Evening";
+      return "Good evening";
     }
   };
 
