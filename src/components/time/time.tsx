@@ -51,25 +51,6 @@ export function Time({ imageUrl }: TimeProps) {
     };
   }, []);
 
-  const success = (position: GeolocationPosition): void => {
-    const { coords } = position;
-    setUserLocation(
-      `Latitude: ${coords.latitude}, Longitude: ${coords.longitude}`
-    );
-  };
-
-  useEffect(() => {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(success, (error) => {
-        console.error("Error getting geolocation", error);
-        setUserLocation("Location not available");
-      });
-    } else {
-      console.log("Geolocation is not available");
-      setUserLocation("Geolocation not supported");
-    }
-  }, []);
-
   return (
     <>
       <div>
