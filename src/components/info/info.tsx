@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 interface DateProps {
   dayOfYear: number;
   dayName: string;
@@ -41,8 +43,6 @@ async function getIpAddress() {
 
 interface LocationInfo {
   timezone: string;
-  city: string;
-  country: string;
 }
 
 async function getLocationInfo(): Promise<LocationInfo | null> {
@@ -51,7 +51,6 @@ async function getLocationInfo(): Promise<LocationInfo | null> {
     if (!ipAddress) {
       throw new Error("Failed to get IP address");
     }
-
     const response = await fetch(`http://ip-api.com/json/${ipAddress}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -59,8 +58,6 @@ async function getLocationInfo(): Promise<LocationInfo | null> {
     const data = await response.json();
     return {
       timezone: data.timezone,
-      city: data.city,
-      country: data.country,
     };
   } catch (error) {
     console.log("Error in getLocation:", error);
@@ -68,23 +65,27 @@ async function getLocationInfo(): Promise<LocationInfo | null> {
   }
 }
 
-getLocationInfo();
-
-interface InfoProps {
-  location: string;
-}
-
-export function Information({ location }: InfoProps) {
+export function Information() {
+  const [locationInfo, setLocationInfo] = useState<LocationInfo | null>(null);
   // Get the current date
   const currentDate = new Date();
   const { dayOfYear, dayName, weekNumber } = getDateInfo(currentDate);
+
+  //Get the current location
+  useEffect(() => {
+    const fetchLocation = async () => {
+      const location = await getLocationInfo();
+      setLocationInfo(location);
+    };
+    fetchLocation();
+  }, []);
 
   return (
     <section>
       <div>
         <article>
           <p>CURRENT TIMEZONE</p>
-          <p>{location}</p>
+          <p>{locationInfo?.timezone}</p>
         </article>
         <article>
           <p>DAY OF THE YEAR</p>

@@ -27,7 +27,7 @@ export function MainPage() {
         imageUrl={showInfo ? arrowUpIcon : arrowDownIcon}
       />
 
-      {showInfo && <Information location="Europe/London" />}
+      {showInfo && <Information />}
     </main>
   );
 }
