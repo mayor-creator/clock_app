@@ -58,8 +58,8 @@ export function Time({ imageUrl }: TimeProps) {
         <p>{userGreeting}</p>
       </div>
       <div>
-        <p>Current Time: {userTime}</p>
-        <p>Current Location: {userLocation}</p>
+        <p>{userTime}</p>
+        <p>in : {userLocation}</p>
       </div>
     </>
   );

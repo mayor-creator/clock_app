@@ -7,50 +7,46 @@ interface QuoteProps {
   length: number;
 }
 
+const DEFAULT_QUOTE = {
+  _id: "default",
+  content:
+    "The science of operations, as derived from mathematics more especially, is a science of itself, and has its own abstract truth and value.",
+  author: "Ada Lovelace",
+  length: 1,
+};
+
 export function Quote() {
-  const [quote, setQuote] = useState<QuoteProps | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [quote, setQuote] = useState<QuoteProps>(DEFAULT_QUOTE);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const requestOptions: RequestInit = {
-      method: "GET",
-      redirect: "follow",
-    };
-
-    fetch("https://api.quotable.io/random", requestOptions)
-      .then((response) => {
+    const fetchQuote = async () => {
+      try {
+        const response = await fetch("https://api.quotable.io/random");
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.json();
-      })
-      .then((result: QuoteProps) => {
-        setQuote(result);
+        const data = await response.json();
+        setQuote(data);
+      } catch (err) {
+        console.error("Failed to fetch quote:", err);
+        setQuote(DEFAULT_QUOTE);
+      } finally {
         setIsLoading(false);
-      })
-      .catch((err: any) => {
-        setError(err.message || "An error occurred.");
-        setIsLoading(false);
-      });
+      }
+    };
+
+    fetchQuote();
   }, []);
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (quote) {
-    return (
-      <div>
-        <p>"{quote.content}"</p>
-        <p>- {quote.author}</p>
-      </div>
-    );
-  }
-
-  return null;
+  return (
+    <div>
+      <p>"{quote.content}"</p>
+      <p>{quote.author}</p>
+    </div>
+  );
 }
