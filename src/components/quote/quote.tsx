@@ -15,28 +15,61 @@ const DEFAULT_QUOTE = {
   length: 1,
 };
 
+interface RequestOptions extends RequestInit {
+  method: "GET";
+  redirect: "follow";
+}
+
+interface QuoteResponse {
+  _id: string;
+  content: string;
+  author: string;
+  length: number;
+}
+
+const fetchQuote = async (): Promise<QuoteResponse> => {
+  const requestOptions: RequestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
+
+  try {
+    const response = await fetch(
+      "https://api.quotable.io/random",
+      requestOptions
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data: QuoteResponse = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching quote:", error);
+    throw error;
+  }
+};
+
 export function Quote() {
   const [quote, setQuote] = useState<QuoteProps>(DEFAULT_QUOTE);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchQuote = async () => {
+    const getQuote = async () => {
       try {
-        const response = await fetch("https://api.quotable.io/random");
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
+        setIsLoading(true);
+        const data = await fetchQuote();
         setQuote(data);
-      } catch (err) {
-        console.error("Failed to fetch quote:", err);
+      } catch (error) {
+        console.error("Failed to fetch quote:", error);
         setQuote(DEFAULT_QUOTE);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchQuote();
+    getQuote();
   }, []);
 
   if (isLoading) {
