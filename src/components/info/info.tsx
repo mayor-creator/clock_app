@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import styles from "./info.module.css";
 
 interface DateProps {
   dayOfYear: number;
@@ -67,11 +68,9 @@ async function getLocationInfo(): Promise<LocationInfo | null> {
 
 export function Information() {
   const [locationInfo, setLocationInfo] = useState<LocationInfo | null>(null);
-  // Get the current date
   const currentDate = new Date();
   const { dayOfYear, dayName, weekNumber } = getDateInfo(currentDate);
 
-  //Get the current location
   useEffect(() => {
     const fetchLocation = async () => {
       const location = await getLocationInfo();
@@ -81,25 +80,25 @@ export function Information() {
   }, []);
 
   return (
-    <section>
-      <div>
-        <article>
-          <p>CURRENT TIMEZONE</p>
-          <p>{locationInfo?.timezone}</p>
+    <section className={styles.container}>
+      <div className={styles.row}>
+        <article className={styles.article}>
+          <p className={styles.label}>Current timezone</p>
+          <p className={styles.value}>{locationInfo?.timezone}</p>
         </article>
-        <article>
-          <p>DAY OF THE YEAR</p>
-          <p>{dayOfYear}</p>
+        <article className={styles.article}>
+          <p className={styles.label}>Day of the year</p>
+          <p className={styles.value}>{dayOfYear}</p>
         </article>
       </div>
-      <div>
-        <article>
-          <p>DAY OF THE WEEK</p>
-          <p>{dayName}</p>
+      <div className={styles.row}>
+        <article className={styles.article}>
+          <p className={styles.label}>Day of the week</p>
+          <p className={styles.value}>{dayName}</p>
         </article>
-        <article>
-          <p>WEEK NUMBER</p>
-          <p>{weekNumber}</p>
+        <article className={styles.article}>
+          <p className={styles.label}>Week number</p>
+          <p className={styles.value}>{weekNumber}</p>
         </article>
       </div>
     </section>
