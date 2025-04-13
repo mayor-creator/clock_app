@@ -1,0 +1,12 @@
+.quote {
+  color: var(--color-white);
+  font-size: 12px;
+  line-height: 22px;
+}
+
+.author {
+  color: var(--color-white);
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 22px;
+}

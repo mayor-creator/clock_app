@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import styles from "./quote.module.css";
 
 interface QuoteProps {
   _id: string;
@@ -78,8 +79,8 @@ export function Quote() {
 
   return (
     <section>
-      <p>"{quote.content}"</p>
-      <p>{quote.author}</p>
+      <p className={styles.quote}>"{quote.content}"</p>
+      <p className={styles.author}>{quote.author}</p>
     </section>
   );
 }
