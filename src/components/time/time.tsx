@@ -54,14 +54,14 @@ export function Time({ imageUrl }: TimeProps) {
   return (
     <>
       <div>
-        <div>
+        <section>
           <img src={imageUrl} alt="" />
           <p>{userGreeting}</p>
-        </div>
-        <div>
+        </section>
+        <section>
           <p>{userTime}</p>
           <p>in : {userLocation}</p>
-        </div>
+        </section>
       </div>
     </>
   );
