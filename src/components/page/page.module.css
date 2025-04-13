@@ -12,6 +12,7 @@
   flex-direction: column;
   gap: 2rem;
   margin-top: auto;
+  height: 100%;
 }
 
 /* Tablet (768px and up) */

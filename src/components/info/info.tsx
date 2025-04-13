@@ -70,6 +70,8 @@ export function Information() {
   const [locationInfo, setLocationInfo] = useState<LocationInfo | null>(null);
   const currentDate = new Date();
   const { dayOfYear, dayName, weekNumber } = getDateInfo(currentDate);
+  const hour = currentDate.getHours();
+  const isDaytime = hour >= 6 && hour < 18;
 
   useEffect(() => {
     const fetchLocation = async () => {
@@ -80,7 +82,9 @@ export function Information() {
   }, []);
 
   return (
-    <section className={styles.container}>
+    <section
+      className={isDaytime ? styles.containerDay : styles.containerNight}
+    >
       <div className={styles.row}>
         <article className={styles.article}>
           <p className={styles.label}>Current timezone</p>
