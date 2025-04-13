@@ -53,7 +53,7 @@ export function Time({ imageUrl }: TimeProps) {
 
   return (
     <>
-      <div>
+      <section>
         <section>
           <img src={imageUrl} alt="" />
           <p>{userGreeting}</p>
@@ -62,7 +62,7 @@ export function Time({ imageUrl }: TimeProps) {
           <p>{userTime}</p>
           <p>in : {userLocation}</p>
         </section>
-      </div>
+      </section>
     </>
   );
 }
