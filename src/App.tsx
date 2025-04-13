@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 import { MainPage } from "./components/page/page";
 import desktopLight from "../src/assets/images/desktop/bg-image-daytime.jpg";
@@ -31,39 +31,17 @@ const getDeviceType = (): "mobile" | "tablet" | "desktop" => {
 };
 
 function App() {
-  const [bgImage, setBgImage] = useState<string>("");
-
   useEffect(() => {
     const theme = getTimeOfDay();
     const device = getDeviceType();
     const key = `${device}-${theme}`;
-    setBgImage(backgroundImage[key]);
+    document.body.style.backgroundImage = `url(${backgroundImage[key]})`;
   }, []);
 
   return (
-    <>
-      <div
-        style={{
-          backgroundImage: `url(${bgImage})`,
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          style={{
-            position: "relative",
-            minHeight: "100vh",
-            width: "100%",
-            zIndex: "1",
-          }}
-        >
-          <MainPage></MainPage>
-        </div>
-      </div>
-    </>
+    <div id="root">
+      <MainPage />
+    </div>
   );
 }
 
