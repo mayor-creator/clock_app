@@ -24,7 +24,7 @@ interface LocationInfo {
 async function getLocationInfo(): Promise<LocationInfo | null> {
   try {
     // Check if we have cached location data
-    const cachedLocation = localStorage.getItem('userLocation');
+    const cachedLocation = localStorage.getItem("userLocation");
     if (cachedLocation) {
       return JSON.parse(cachedLocation);
     }
@@ -38,14 +38,14 @@ async function getLocationInfo(): Promise<LocationInfo | null> {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    
+
     const locationData = {
       city: data.city,
       country: data.country_name,
     };
 
     // Cache the location data
-    localStorage.setItem('userLocation', JSON.stringify(locationData));
+    localStorage.setItem("userLocation", JSON.stringify(locationData));
     return locationData;
   } catch (error) {
     console.error("Error in getLocation:", error);
