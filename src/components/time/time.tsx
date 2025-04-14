@@ -23,21 +23,32 @@ interface LocationInfo {
 
 async function getLocationInfo(): Promise<LocationInfo | null> {
   try {
+    // Check if we have cached location data
+    const cachedLocation = localStorage.getItem('userLocation');
+    if (cachedLocation) {
+      return JSON.parse(cachedLocation);
+    }
+
     const ipAddress = await getIpAddress();
     if (!ipAddress) {
       throw new Error("Failed to get IP address");
     }
-    const response = await fetch(`http://ip-api.com/json/${ipAddress}`);
+    const response = await fetch(`https://ipapi.co/${ipAddress}/json/`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    return {
+    
+    const locationData = {
       city: data.city,
-      country: data.country,
+      country: data.country_name,
     };
+
+    // Cache the location data
+    localStorage.setItem('userLocation', JSON.stringify(locationData));
+    return locationData;
   } catch (error) {
-    console.log("Error in getLocation:", error);
+    console.error("Error in getLocation:", error);
     return null;
   }
 }
@@ -91,9 +102,14 @@ export function Time({ imageUrl }: TimeProps) {
 
   useEffect(() => {
     const fetchLocation = async () => {
-      const location = await getLocationInfo();
-      if (location) {
-        setUserLocation(`${location.city}, ${location.country}`);
+      try {
+        const location = await getLocationInfo();
+        if (location) {
+          setUserLocation(`${location.city}, ${location.country}`);
+        }
+      } catch (error) {
+        console.error("Error fetching location:", error);
+        setUserLocation(null);
       }
     };
     fetchLocation();

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./page.module.css";
 
 import { Quote } from "../quote/quote";
@@ -12,22 +12,32 @@ import moonIcon from "../../assets/images/desktop/icon-moon.svg";
 import sunIcon from "../../assets/images/desktop/icon-sun.svg";
 
 export function MainPage() {
-  const [showInfo, setShowInfo] = useState(false);
-
-  const handleShowInfoClick = () => {
-    setShowInfo(!showInfo);
-  };
-
   const getTimeIcon = () => {
     const hour = new Date().getHours();
     return hour >= 6 && hour < 18 ? sunIcon : moonIcon;
   };
 
+  const [showInfo, setShowInfo] = useState(false);
+  const [timeIcon, setTimeIcon] = useState(getTimeIcon());
+
+  const handleShowInfoClick = () => {
+    setShowInfo(!showInfo);
+  };
+
+  useEffect(() => {
+    // Update icon every minute
+    const intervalId = setInterval(() => {
+      setTimeIcon(getTimeIcon());
+    }, 60000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <main className={styles.container}>
       {!showInfo && <Quote />}
       <div className={styles.mainContent}>
-        <Time imageUrl={getTimeIcon()} />
+        <Time imageUrl={timeIcon} />
         <Button
           title={showInfo ? "Less" : "More"}
           onClick={handleShowInfoClick}

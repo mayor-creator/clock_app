@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./quote.module.css";
+import refreshIcon from "../../assets/images/desktop/icon-refresh.svg";
 
 interface QuoteProps {
   _id: string;
@@ -56,31 +57,45 @@ export function Quote() {
   const [quote, setQuote] = useState<QuoteProps>(DEFAULT_QUOTE);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    const getQuote = async () => {
-      try {
-        setIsLoading(true);
-        const data = await fetchQuote();
-        setQuote(data);
-      } catch (error) {
-        console.error("Failed to fetch quote:", error);
-        setQuote(DEFAULT_QUOTE);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const getQuote = async () => {
+    try {
+      setIsLoading(true);
+      const data = await fetchQuote();
+      setQuote(data);
+    } catch (error) {
+      console.error("Failed to fetch quote:", error);
+      setQuote(DEFAULT_QUOTE);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
     getQuote();
   }, []);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <section>
-      <p className={styles.quote}>"{quote.content}"</p>
-      <p className={styles.author}>{quote.author}</p>
+    <section className={styles.quoteSection}>
+      <div className={styles.quoteContent}>
+        <p className={`${styles.quote} ${isLoading ? styles.loading : ''}`}>
+          "{quote.content}"
+        </p>
+        <p className={`${styles.author} ${isLoading ? styles.loading : ''}`}>
+          {quote.author}
+        </p>
+      </div>
+      <button 
+        className={styles.refreshButton} 
+        onClick={getQuote}
+        disabled={isLoading}
+        aria-label="Refresh quote"
+      >
+        <img 
+          src={refreshIcon} 
+          alt="Refresh" 
+          className={isLoading ? styles.rotating : ''}
+        />
+      </button>
     </section>
   );
 }

@@ -13,6 +13,17 @@
   height: 3.5rem;
   width: 9.12rem;
   justify-content: center;
+  background-color: var(--color-white);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.button:active {
+  transform: scale(0.98);
 }
 
 .icon {

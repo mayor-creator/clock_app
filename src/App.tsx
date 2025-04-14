@@ -32,10 +32,29 @@ const getDeviceType = (): "mobile" | "tablet" | "desktop" => {
 
 function App() {
   useEffect(() => {
-    const theme = getTimeOfDay();
-    const device = getDeviceType();
-    const key = `${device}-${theme}`;
-    document.body.style.backgroundImage = `url(${backgroundImage[key]})`;
+    const updateBackground = () => {
+      const theme = getTimeOfDay();
+      const device = getDeviceType();
+      const key = `${device}-${theme}`;
+      document.body.style.backgroundImage = `url(${backgroundImage[key]})`;
+    };
+
+    // Initial update
+    updateBackground();
+
+    // Update background every minute
+    const intervalId = setInterval(updateBackground, 60000);
+
+    // Handle window resize
+    const handleResize = () => {
+      updateBackground();
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      clearInterval(intervalId);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (
