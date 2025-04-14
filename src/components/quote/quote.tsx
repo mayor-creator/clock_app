@@ -77,23 +77,23 @@ export function Quote() {
   return (
     <section className={styles.quoteSection}>
       <div className={styles.quoteContent}>
-        <p className={`${styles.quote} ${isLoading ? styles.loading : ''}`}>
+        <p className={`${styles.quote} ${isLoading ? styles.loading : ""}`}>
           "{quote.content}"
         </p>
-        <p className={`${styles.author} ${isLoading ? styles.loading : ''}`}>
+        <p className={`${styles.author} ${isLoading ? styles.loading : ""}`}>
           {quote.author}
         </p>
       </div>
-      <button 
-        className={styles.refreshButton} 
+      <button
+        className={styles.refreshButton}
         onClick={getQuote}
         disabled={isLoading}
         aria-label="Refresh quote"
       >
-        <img 
-          src={refreshIcon} 
-          alt="Refresh" 
-          className={isLoading ? styles.rotating : ''}
+        <img
+          src={refreshIcon}
+          alt="Refresh"
+          className={isLoading ? styles.rotating : ""}
         />
       </button>
     </section>
