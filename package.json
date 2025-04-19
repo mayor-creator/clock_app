@@ -3,7 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://mayor-creator.github.io/clock_app",
   "scripts": {
+    "gh-pages-build": "vite build",
+    "gh-pages-deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
@@ -25,6 +28,7 @@
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
+    "gh-pages": "^6.3.0",
     "globals": "^15.15.0",
     "jsdom": "^26.1.0",
     "typescript": "~5.7.2",
