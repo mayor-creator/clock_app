@@ -11,6 +11,6 @@ describe("Time component", () => {
 
   it("displays the correct time", () => {
     const { getByText } = render(<Time />);
-    expect(getByText(/current time/i)).toBeInTheDocument();
+    expect(getByText(/\d{1,2}:\d{2} [AP]M/i)).toBeInTheDocument();
   });
 });
