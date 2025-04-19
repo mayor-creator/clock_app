@@ -1,15 +1,13 @@
 import { describe, it, expect } from "vitest";
+import { render, screen } from "@testing-library/react";
 import { Information } from "./info";
-import { render } from "@testing-library/react";
 
-describe("Info Component", () => {
+describe("Information Component", () => {
   it("renders correctly", () => {
-    const { container } = render(<Information />);
-    expect(container).toBeInTheDocument();
-  });
-
-  it("displays the correct text", () => {
-    const { getByText } = render(<Information />);
-    expect(getByText("Expected Text")).toBeInTheDocument();
+    render(<Information />);
+    expect(screen.getByText("Current timezone")).toBeInTheDocument();
+    expect(screen.getByText("Day of the year")).toBeInTheDocument();
+    expect(screen.getByText("Day of the week")).toBeInTheDocument();
+    expect(screen.getByText("Week number")).toBeInTheDocument();
   });
 });
